@@ -51,8 +51,12 @@ export const equalHandler = (state) => {
     }
   }
   if (operator === '/') {
+    const divResult =
+      previousValueFloat === 0
+        ? 0
+        : (previousValueFloat / currentValueFloat).toFixed(10)
     return {
-      currentValue: (previousValueFloat / currentValueFloat).toFixed(10),
+      currentValue: divResult,
       ...resetState,
     }
   }
@@ -76,6 +80,10 @@ export default function Calculator(type, value, state) {
     case 'posNeg':
       return {
         currentValue: `${parseFloat(state.currentValue) * -1}`,
+      }
+    case 'percentage':
+      return {
+        currentValue: `${parseFloat(state.currentValue) * 0.1}`,
       }
     default:
       return state
