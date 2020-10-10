@@ -57,7 +57,7 @@ export default class App extends React.Component {
               onPress={() => this.handleTap('percentage')}
             />
             <Button
-              text="/"
+              text="÷"
               theme="accent"
               onPress={() => this.handleTap('operator', '/')}
             />

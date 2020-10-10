@@ -48,7 +48,7 @@ export const equalHandler = (state) => {
   }
   if (operator === '/') {
     return {
-      currentValue: previousValueFloat / currentValueFloat,
+      currentValue: (previousValueFloat / currentValueFloat).toFixed(10),
       ...resetState,
     }
   }
