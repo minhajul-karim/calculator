@@ -2,13 +2,15 @@ export const initialState = {
   currentValue: '0',
   operator: null,
   previousValue: null,
+  isCalculated: false,
 }
 
 export const handleNumber = (state, value) => {
   // Remove the preceding zero
-  if (state.currentValue === '0') {
+  if (state.currentValue === '0' || state.isCalculated) {
     return {
       currentValue: `${value}`,
+      isCalculated: false,
     }
   }
   // Ignore multiple occurances of dot(.)
@@ -17,6 +19,7 @@ export const handleNumber = (state, value) => {
   }
   return {
     currentValue: `${state.currentValue}${value}`,
+    isCalculated: false,
   }
 }
 
@@ -31,6 +34,7 @@ export const equalHandler = (state) => {
   if (operator === '+') {
     return {
       currentValue: previousValueFloat + currentValueFloat,
+      isCalculated: true,
       ...resetState,
     }
   }
