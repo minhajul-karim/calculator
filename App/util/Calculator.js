@@ -23,6 +23,13 @@ export const handleNumber = (state, value) => {
   }
 }
 
+export const truncate = (value) => {
+  if (!Number.isInteger(value)) {
+    return value.toFixed(10)
+  }
+  return value
+}
+
 export const equalHandler = (state) => {
   const { currentValue, previousValue, operator } = state
   const currentValueFloat = parseFloat(currentValue)
@@ -32,31 +39,34 @@ export const equalHandler = (state) => {
     operator: null,
   }
   if (operator === '+') {
+    const addResult = truncate(previousValueFloat + currentValueFloat)
     return {
-      currentValue: previousValueFloat + currentValueFloat,
+      currentValue: addResult,
       isCalculated: true,
       ...resetState,
     }
   }
   if (operator === '-') {
+    const subResult = truncate(previousValueFloat - currentValueFloat)
     return {
-      currentValue: previousValueFloat - currentValueFloat,
+      currentValue: subResult,
+      isCalculated: true,
       ...resetState,
     }
   }
   if (operator === '*') {
+    const mulResult = truncate(previousValueFloat * currentValueFloat)
     return {
-      currentValue: previousValueFloat * currentValueFloat,
+      currentValue: mulResult,
+      isCalculated: true,
       ...resetState,
     }
   }
   if (operator === '/') {
-    const divResult =
-      previousValueFloat === 0
-        ? 0
-        : (previousValueFloat / currentValueFloat).toFixed(10)
+    const divResult = truncate(previousValueFloat / currentValueFloat)
     return {
       currentValue: divResult,
+      isCalculated: true,
       ...resetState,
     }
   }
